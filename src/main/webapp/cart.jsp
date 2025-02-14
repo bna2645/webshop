@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -19,6 +20,7 @@
                 <th>STT</th>
                 <th>Product Name</th>
                 <th>Price</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -27,14 +29,26 @@
                     <td>${status.index + 1}</td>
                     <td>${product.tenSanPham}</td>
                     <td>${product.gia}</td>
+                    <td>
+                        <form action="CartServlet" method="post" style="display:inline;">
+                            <input type="hidden" name="action" value="remove" />
+                            <input type="hidden" name="id" value="${product.id}" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
+            <tr>
+                <td colspan="2"><strong>Total Money</strong></td>
+                <td colspan="2"><strong>${totalPrice}</strong></td>
+            </tr>
             </tbody>
         </table>
     </c:if>
     <a href="ProductListServlet" class="btn btn-primary">Continue to purchase</a>
     <a href="LogoutServlet" class="btn btn-secondary float-right">Logout</a>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

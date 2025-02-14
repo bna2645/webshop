@@ -13,7 +13,7 @@ public class OrderDAO {
     }
 
     // Thêm một đơn hàng mới
-    public boolean addOrder(Order order) {
+    public boolean insertOrder(Order order) {
         String sql = "INSERT INTO donhang(idKhachHang, ngayDat, tongTien) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, order.getIdKhachHang());
@@ -49,3 +49,43 @@ public class OrderDAO {
         return orders;
     }
 }
+
+//import beans.Order;
+//import java.sql.Connection;
+//import java.sql.PreparedStatement;
+//import java.sql.SQLException;
+//import java.sql.Statement;
+//import java.sql.ResultSet;
+//
+//public class OrderDAO {
+//    private Connection conn;
+//
+//    public OrderDAO(Connection conn) {
+//        this.conn = conn;
+//    }
+//
+//    // Phương thức insertOrder sẽ chèn đơn hàng vào bảng "donhang"
+//    public int insertOrder(Order order) throws SQLException {
+//        String sql = "INSERT INTO donhang (idKhachHang, ngayDat, tongTien) VALUES (?, ?, ?)";
+//        // Lấy id sinh tự động
+//        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+//            stmt.setInt(1, order.getIdKhachHang());
+//            // Sử dụng java.sql.Timestamp để lưu giá trị ngày giờ
+//            stmt.setTimestamp(2, new java.sql.Timestamp(order.getNgayDat().getTime()));
+//            stmt.setDouble(3, order.getTongTien());
+//            int affectedRows = stmt.executeUpdate();
+//            if (affectedRows == 0) {
+//                throw new SQLException("Chèn đơn hàng thất bại, không có dòng nào được ảnh hưởng.");
+//            }
+//            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+//                if (generatedKeys.next()) {
+//                    order.setId(generatedKeys.getInt(1));
+//                } else {
+//                    throw new SQLException("Chèn đơn hàng thất bại, không lấy được ID.");
+//                }
+//            }
+//            return order.getId();
+//        }
+//    }
+//
+//}
